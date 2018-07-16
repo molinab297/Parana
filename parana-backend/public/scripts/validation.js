@@ -5,7 +5,7 @@
   var Validation = {
     // Validates whether or not an email has a valid email address format.
     isValidEmail: function(email) {
-      return /.+@*\.com$/.test(email);
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
   };
 

@@ -1,7 +1,7 @@
 (function (window) {
   "use strict";
-  var LOGIN_FORM_SELECTOR = "#login-form-link";
-  var REGISTER_FORM_SELECTOR = "#register-form-link";
+  var LOGIN_FORM_SELECTOR = "[login-form=\"form\"]";
+  var REGISTER_FORM_SELECTOR = "[register-form=\"form\"]";
   var $ = window.jQuery;
   var App = window.App;
   var FormHandler = App.FormHandler;
