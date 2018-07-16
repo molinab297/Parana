@@ -1,5 +1,7 @@
 (function (window) {
   "use strict";
+
+  // Variable declarations go here
   var LOGIN_FORM_SELECTOR = "[login-form=\"form\"]";
   var REGISTER_FORM_SELECTOR = "[register-form=\"form\"]";
   var $ = window.jQuery;
@@ -41,6 +43,7 @@
 
   /*
    * Add a form handler for the user login screen.
+   *
    * @param data The form data the was entered by the user.
    */
   loginFormHandler.addSubmitHandler(function (data) {
