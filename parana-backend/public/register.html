@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Deployd login form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Register</h1>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" />
+      <label for="password">Password:</label>
+      <input type="password" id="password" />
+      <label for="confirm-password">Confirm Password:</label>
+      <input type="password" id="confirm-password" /><br />
+      <button type="submit" class="btn btn-primary">Sign up</button>
+      <a href="/" class="btn btn-link">home</a>
+    </form>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js" charset="utf-8"></script>
+  <script src="/dpd.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $('form').submit(function() {
+      var username = $('#username').val();
+      var password = $('#password').val();
+      var confirmPassword = $('#confirm-password').val();
+
+      if (!username) {
+        alert("Username is required");
+      } else if (!password) {
+        alert("Password is required");
+      } else if (password !== confirmPassword) {
+        alert("Passwords do not match");
+      } else {
+        dpd.users.post({username: username, password: password}, function(user, error) {
+          if (error) {
+            alert(JSON.stringify(error));
+          } else {
+            location.href = "/index.html";
+          }
+        });
+      }
+
+      return false;
+    });
+  </script>
+</body>
+</html>
