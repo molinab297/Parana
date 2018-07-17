@@ -44,7 +44,7 @@
    * each time the user modifies the Email field within the form, they should be notified
    * if the email they just entered is a valid email address.
    *
-   * TODO: Need to make this more generic to accept any selector. 
+   * TODO: Need to make this more generic to accept any selector.
    *
    * @param fn The function to apply on the input data as soon as it gets modified.
    */

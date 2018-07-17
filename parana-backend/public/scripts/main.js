@@ -8,7 +8,6 @@
   var App = window.App;
   var FormHandler = App.FormHandler;
   var Validation = App.Validation;
-
   var loginFormHandler = new FormHandler(LOGIN_FORM_SELECTOR);
   var registerFormHandler = new FormHandler(REGISTER_FORM_SELECTOR);
 
@@ -19,10 +18,10 @@
     }
   });
 
- /*
-  * Set-up nice looking animations for when the user clicks on
-  * the login and register buttons :-)
-  */
+  /*
+   * Set-up nice looking animations for when the user clicks on
+   * the login and register buttons :-)
+   */
   $("#login-form-link").click(function(e) {
     $("#login-form").delay(100).fadeIn(100);
     $("#register-form").fadeOut(100);
@@ -38,13 +37,16 @@
     e.preventDefault();
   });
 
-  // Add input handler for the user login screen to validate the email
+  // Add input handler for the login screen to validate the email
   loginFormHandler.addInputHandler(Validation.isValidEmail);
+  // Add input handler for the register screen to validate the email
+  registerFormHandler.addInputHandler(Validation.isValidEmail);
 
   /*
-   * Add a form handler for the user login screen.
+   * Add a form handler for the login page.
    *
-   * @param data The form data the was entered by the user.
+   * @param data The form data the was entered by the user. This data contains
+   *             the email address and password that the user entered.
    */
   loginFormHandler.addSubmitHandler(function (data) {
     // Attemp to login
@@ -55,6 +57,26 @@
         location.href = "/welcome.html";
       }
     });
+  });
+
+  /*
+   * Add a form handler for the register page.
+   *
+   * @param data The form data the was entered by the user. This data contains
+   *             the new email address and password that the user entered.
+   */
+  registerFormHandler.addSubmitHandler(function (data) {
+    // Make sure user entered the same password twice.
+    if ($("#new-password").val() !== $("#confirm-password").val()){
+      alert("Passwords do not match!");
+    } else {
+      // Attemp to register the new account.
+      dpd.users.post({username: data.emailAddress, password: data.password}).then(function(newAccount) {
+        console.log("Created new account: " + newAccount);
+      }, function(err) {
+        console.log("Error while trying to create account: " + err);
+      });
+    }
   });
 
 })(window);

@@ -1,15 +1,20 @@
 <!DOCTYPE html>
+<!--TODO: This html page should be 'welcome.html' instead of 'index.html'. The index should contain
+					the html for the main home page. -->
 <html>
 <head>
 	<title>Deployd login form</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+	<style>
+		form :focus:required:invalid { border-color: #a94442 }
+	</style>
 </head>
 <body>
 	<div style="background:transparent" class="container col text-center justify-content-center align-self-center">
 		<div style="background:transparent" class="jumbotron" >
 	<h1>Welcome to Parana</h1>
-	<p>The world's largest shopping site... right being Amazon.</p>
+	<p>The world's 2nd largest shopping site... right behind Amazon.</p>
 </div>
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -30,10 +35,12 @@
 							<div class="col-lg-12">
 								<form login-form="form" id="login-form" role="form" style="display: block;">
 									<div class="form-group">
-										<input type="text" name="emailAddress" id="login-email" tabindex="1" class="form-control" placeholder="Email" value="">
+										<input type="text" name="emailAddress" id="login-email" tabindex="1" class="form-control"
+										placeholder="Email" value="" autofocus required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+										<input type="password" name="password" id="password" tabindex="2" class="form-control"
+										placeholder="Password" required>
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
@@ -42,7 +49,8 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4"
+												class="form-control btn btn-login" value="Log In">
 											</div>
 										</div>
 									</div>
@@ -58,16 +66,16 @@
 								</form>
 								<form register-form="form" id="register-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="emailAddress" id="register-email" tabindex="1" class="form-control" placeholder="Email" value="">
+										<input type="text" name="emailAddress" id="register-email" tabindex="1" class="form-control"
+										placeholder="Email" value="" autofocus required>
 									</div>
 									<div class="form-group">
-										<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+										<input type="password" name="password" id="new-password" tabindex="2" class="form-control"
+										placeholder="Password" required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="newPassword" tabindex="2" class="form-control" placeholder="Password">
-									</div>
-									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+										<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control"
+										placeholder="Confirm Password" required>
 									</div>
 									<div class="form-group">
 										<div class="row">
