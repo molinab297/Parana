@@ -68,13 +68,19 @@
   registerFormHandler.addSubmitHandler(function (data) {
     // Make sure user entered the same password twice.
     if ($("#new-password").val() !== $("#confirm-password").val()){
-      alert("Passwords do not match!");
+      $("#register-account-popup-msg").text("Passwords do not match!");
+      $("#register-account-popup").modal({});
     } else {
       // Attemp to register the new account.
       dpd.users.post({username: data.emailAddress, password: data.password}).then(function(newAccount) {
         console.log("Created new account: " + newAccount);
       }, function(err) {
-        console.log("Error while trying to create account: " + err);
+        if (err.errors["username"] === "is already in use"){
+          $("#register-account-popup-msg").text("An account with this email already exists!");
+          $("#register-account-popup").modal({});
+        } else {
+          alert("An unknown error occured while trying to create the account.");
+        }
       });
     }
   });
