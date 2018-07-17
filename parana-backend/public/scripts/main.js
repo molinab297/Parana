@@ -54,7 +54,7 @@
       if (error) {
         alert(error.message);
       } else {
-        location.href = "/welcome.html";
+        location.href = "/index.html";
       }
     });
   });
@@ -73,13 +73,18 @@
     } else {
       // Attemp to register the new account.
       dpd.users.post({username: data.emailAddress, password: data.password}).then(function(newAccount) {
+        $("#register-account-popup-msg").text("Successfully created the account!");
+        $("#register-account-popup").modal({});
         console.log("Created new account: " + newAccount);
-      }, function(err) {
+      },
+      // Error encountered
+      function(err) {
         if (err.errors["username"] === "is already in use"){
           $("#register-account-popup-msg").text("An account with this email already exists!");
           $("#register-account-popup").modal({});
         } else {
-          alert("An unknown error occured while trying to create the account.");
+          $("#register-account-popup-msg").text("An unknown error occured while trying to create the account.");
+          $("#register-account-popup").modal({});
         }
       });
     }
