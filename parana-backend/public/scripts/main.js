@@ -1,3 +1,4 @@
+// TODO: Move all logic dealing with welcome.html to a separate .js file.
 (function (window) {
   "use strict";
 
@@ -14,7 +15,7 @@
   // If user is already logged in, forward them to the main page
   dpd.users.me(function(user) {
     if (user) {
-      location.href = "/welcome.html";
+      location.href = "/index.html";
     }
   });
 
