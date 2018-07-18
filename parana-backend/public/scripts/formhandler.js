@@ -46,7 +46,7 @@
    *
    * TODO: Need to make this more generic to accept any selector.
    *
-   * @param fn The function to apply on the input data as soon as it gets modified.
+   * @param fn The validation method to apply on the text input by the user.
    */
   FormHandler.prototype.addInputHandler = function(fn){
     console.log("Setting input handler for form");
