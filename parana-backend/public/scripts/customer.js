@@ -41,7 +41,7 @@ function removeFromCart(itemId){
   dpd.users.me(function(me, err){
       if (!err){
           var cart = me.cart;
-          if (typeof cart !== "undefined" && !cart && cart.length !== 0){
+          if (cart.length !== 0){
               cart.forEach(function(n){
                   if (n.startsWith(itemId)){
                       dpd.users.put(me.id, {cart: {$pull: n}});
@@ -72,6 +72,7 @@ function displayCart(){
                 var itemQuantity = item[1];
                 var ul = document.getElementById("cart-list");
                 var li = document.createElement('li');
+                li.setAttribute("id", "cart-list-item" + itemId);
                 var liPic = document.createElement("img");
 
                 // Get the image of the picture from the DB and then set the src of the img tag.
@@ -84,15 +85,26 @@ function displayCart(){
                         liPic.setAttribute("style", "width:150px;height:150px;");
                         li.appendChild(liPic);
                         li.appendChild(document.createTextNode("Item Price: $" + item.price + " ------ "));
-                        li.appendChild(document.createTextNode("Quantity: " + itemQuantity));
                     }
                 });
 
+                li.appendChild(document.createTextNode("Quantity: " + itemQuantity));
                 var button = document.createElement("button");
                 button.innerHTML = "remove";
+                button.setAttribute("id", "cart-item-remove" + itemId);
                 li.appendChild(button);
-                li.setAttribute("id", "cart-item:" + itemId);
                 ul.appendChild(li);
+
+                // Setup listener for the remove item button
+                var buttonId = "cart-item-remove" + itemId;
+                document.getElementById(buttonId).addEventListener("click", function(){
+                    // removeFromCart(itemId);
+                    var parent = document.getElementById('cart-list');
+
+                    var child = document.getElementById('cart-list-item' + itemId);
+
+                    parent.removeChild(child);
+                });
             }
         } else{
             // TODO: Alert the user that their cart is empty.
