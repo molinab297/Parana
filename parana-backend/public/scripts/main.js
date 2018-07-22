@@ -3,8 +3,6 @@
 
   var $ = window.jQuery;
   var App = window.App;
-  var Customer = App.Customer;
-  var customer = new Customer();
 
   // Write user's email to the welcome message.
   dpd.users.me(function(user) {
@@ -14,7 +12,7 @@
   });
 
     // Load the items from database onto the home page.
-    dpd.items.get({}, function(results, error) {
+    dpd.items.get(function(results, error) {
       if (!error){
           var i = 1;
           results.forEach(function(item){
@@ -29,7 +27,7 @@
              */
             $("#item-title-" + i).click(function(){
                 $("#modal-add-cart-title").text("Add " + item.name + " to Cart");
-                $("#modal-add-cart-msg").text("Please enter the number of " + item.name + "s you'd like to buy.");
+                $("#modal-add-cart-msg").text("Please enter the quantity");
                 $("#modal-add-cart").attr('name', item.id);
                 $("#modal-add-cart").modal('show');
             });
@@ -44,28 +42,33 @@
 
 
 
-    // Setup listener for the 'My Cart' button
+    // Setup listener for the 'Logout' button
     $("#logout").click(function() {
         dpd.users.logout(function(me, err) {
             location.href = "welcome.html";
         });
     });
 
-    // Setup listener for the 'Logout' button
+    // Setup listener for the 'My Cart' button
     $("#my-cart-button").click(function() {
-      console.log("here");
-            $("#modalAddCartForm").modal('show');
+        getCartData();
+        $("#modal-view-cart").modal('show');
+    });
+
+    // Setup listener for the 'Done' button when viewing the cart
+    $('#modal-view-cart-btn').on('click', function () {
+        $("#modal-view-cart").modal('hide');
+        $("#cart-list").empty();
     });
 
 
     // Setup listener for when user adds an item to their cart
-    // TODO: Make sure the quantity they enter is <= the quantity of the item in database
     // TODO: Make field required.
     $('#modal-add-cart-btn').on('click', function () {
         var quantity = $('#modal-add-cart-quantity').val();
         var itemId = $('#modal-add-cart').attr('name');
-        customer.addToCart(itemId, quantity);
         $("#modal-add-cart").modal('hide');
+        addToCart(itemId, quantity);
     });
 
 

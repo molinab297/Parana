@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"userId": {
+			"name": "userId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "userId",
+			"order": 0
+		},
+		"date": {
+			"name": "date",
+			"type": "date",
+			"typeLabel": "date",
+			"required": true,
+			"id": "date",
+			"order": 1
+		},
+		"itemNames": {
+			"name": "itemNames",
+			"type": "array",
+			"typeLabel": "array",
+			"required": true,
+			"id": "itemNames",
+			"order": 2
+		},
+		"itemPrices": {
+			"name": "itemPrices",
+			"type": "array",
+			"typeLabel": "array",
+			"required": true,
+			"id": "itemPrices",
+			"order": 3
+		},
+		"totalCost": {
+			"name": "totalCost",
+			"type": "array",
+			"typeLabel": "array",
+			"required": true,
+			"id": "totalCost",
+			"order": 4
+		}
+	}
+}

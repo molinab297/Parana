@@ -8,14 +8,6 @@
 			"required": false,
 			"id": "cart",
 			"order": 0
-		},
-		"previousOrders": {
-			"name": "previousOrders",
-			"type": "array",
-			"typeLabel": "array",
-			"required": false,
-			"id": "previousOrders",
-			"order": 1
 		}
 	}
 }
