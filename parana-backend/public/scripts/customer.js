@@ -56,7 +56,7 @@ function removeFromCart(itemId){
 }
 
 /**
- * Gets all of the cart data from the current, logged-in user.
+ * Gets and displays all of the cart data from the current, logged-in user.
  * The cart data in deployd is stored as an array of strings in the
  * format 'itemId:itemQuantity'.
  */
@@ -75,7 +75,7 @@ function displayCart(){
                 li.setAttribute("id", "cart-list-item" + itemId);
                 var liPic = document.createElement("img");
 
-                // Get the image of the picture from the DB and then set the src of the img tag.
+                // Get the item image and price from the DB.
                 $.ajax({
                     async: false,
                     type: 'GET',
@@ -91,20 +91,21 @@ function displayCart(){
                 li.appendChild(document.createTextNode("Quantity: " + itemQuantity));
                 var button = document.createElement("button");
                 button.innerHTML = "remove";
-                button.setAttribute("id", "cart-item-remove" + itemId);
+                button.setAttribute("btn-item-id", itemId);
+
+                // When the user clicks the "remove" button next to the item, remove the item from
+                // both the database and pop-up window.
+                button.onclick = function(event){
+                    var itemId = this.getAttribute("btn-item-id");
+                    var parent = document.getElementById('cart-list');
+                    var value = document.getElementById("cart-list-item" + itemId);
+                    removeFromCart(itemId);
+                    parent.removeChild(value);
+                };
+
                 li.appendChild(button);
                 ul.appendChild(li);
 
-                // Setup listener for the remove item button
-                var buttonId = "cart-item-remove" + itemId;
-                document.getElementById(buttonId).addEventListener("click", function(){
-                    // removeFromCart(itemId);
-                    var parent = document.getElementById('cart-list');
-
-                    var child = document.getElementById('cart-list-item' + itemId);
-
-                    parent.removeChild(child);
-                });
             }
         } else{
             // TODO: Alert the user that their cart is empty.
