@@ -72,14 +72,13 @@
     $('#modal-add-cart-btn').on('click', function () {
         var quantity = $('#modal-add-cart-quantity').val();
         var itemId = $('#modal-add-cart').attr('name');
-        $("#modal-add-cart").modal('hide');
         addToCart(itemId, quantity);
+        $("#modal-add-cart").modal('hide');
     });
 
     // Setup listener for when user searches for item using the search bar.
     $('#search-bar').on('keyup', function (e) {
         if (e.keyCode === 13) {
-            $('#search-bar').val('');
             var query = $('#search-bar').val();
             dpd.items.get({name: query}, function(result, err){
                if (!err){
@@ -92,14 +91,23 @@
                        $("#modal-item-search-description").text(item.description);
                        $("#modal-item-search-price").text("$" + item.price);
                        $("#modal-item-search-quantity").text(item.quantity);
+
+                       $("#modal-item-search-add-btn").on('click', function(){
+                           var quantity = $("#modal-item-amount").val();
+                           addToCart(item.id, quantity);
+                           $("#modal-item-search").modal('hide');
+                       });
+
                        $("#modal-item-search").modal('show');
                    } else{
                        console.log("Could not find item!");
                    }
                } else{
+                   // TODO: Add error popup for when item doesn't exist
                    console.log(err);
                }
             });
+            $('#search-bar').val('');
         }
     });
 
