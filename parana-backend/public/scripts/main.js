@@ -92,6 +92,7 @@
                        $("#modal-item-search-price").text("$" + item.price);
                        $("#modal-item-search-quantity").text(item.quantity);
 
+                       // When user adds an item to their cart using the search feature.
                        $("#modal-item-search-add-btn").on('click', function(){
                            var quantity = $("#modal-item-amount").val();
                            addToCart(item.id, quantity);
@@ -101,9 +102,10 @@
                        $("#modal-item-search").modal('show');
                    } else{
                        console.log("Could not find item!");
+
+                       $("#modal-item-search").modal('show');
                    }
                } else{
-                   // TODO: Add error popup for when item doesn't exist
                    console.log(err);
                }
             });
