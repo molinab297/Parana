@@ -14,6 +14,7 @@ function addToCart(itemId, quantity){
         else if (quantity <= item.quantity){
             console.log("Adding item with id: \"" + itemId + "\" to cart");
             dpd.users.me(function(me, err){
+
                 dpd.users.put(me.id, {cart: {$push: itemId + ":" + quantity} }, function(result, err){
                     if (err){
                         console.log(err);
@@ -32,13 +33,26 @@ function addToCart(itemId, quantity){
 }
 
 /**
- * TODO: Removes an item to the logged-in users cart.
+ * Removes an item to the logged-in users cart.
  *
  * @param itemId The UUID of the item
- * @param quantity The amount of the item to remove from the cart.
  */
-function removeFromCart(item, quantity){
-    console.log("Item being removed from cart: " + item);
+function removeFromCart(itemId){
+  dpd.users.me(function(me, err){
+      if (!err){
+          var cart = me.cart;
+          if (typeof cart !== "undefined" && !cart && cart.length !== 0){
+              cart.forEach(function(n){
+                  if (n.startsWith(itemId)){
+                      dpd.users.put(me.id, {cart: {$pull: n}});
+                  }
+              });
+          } else{
+              // TODO: Alert user that cart is empty
+              console.log("cannot remove from an empty cart");
+          }
+      }
+  });
 }
 
 /**
@@ -46,7 +60,7 @@ function removeFromCart(item, quantity){
  * The cart data in deployd is stored as an array of strings in the
  * format 'itemId:itemQuantity'.
  */
-function getCartData(){
+function displayCart(){
     dpd.users.me(function(me, err){
         var cart = me.cart;
         if (cart.length !== 0){
@@ -67,11 +81,17 @@ function getCartData(){
                     url: 'http://localhost:2403/items/' + itemId,
                     success: function(item) {
                         liPic.setAttribute("src", item.image);
+                        liPic.setAttribute("style", "width:150px;height:150px;");
+                        li.appendChild(liPic);
+                        li.appendChild(document.createTextNode("Item Price: $" + item.price + " ------ "));
+                        li.appendChild(document.createTextNode("Quantity: " + itemQuantity));
                     }
                 });
-                liPic.setAttribute("style", "width:150px;height:150px;");
-                li.appendChild(liPic);
-                li.appendChild(document.createTextNode("Quantity: " + itemQuantity));
+
+                var button = document.createElement("button");
+                button.innerHTML = "remove";
+                li.appendChild(button);
+                li.setAttribute("id", "cart-item:" + itemId);
                 ul.appendChild(li);
             }
         } else{
@@ -79,6 +99,8 @@ function getCartData(){
         }
     });
 }
+
+
 
 
 

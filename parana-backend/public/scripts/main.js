@@ -43,7 +43,7 @@
 
 
     // Setup listener for the 'Logout' button
-    $("#logout").click(function() {
+    $("#logout-btn").click(function() {
         dpd.users.logout(function(me, err) {
             location.href = "welcome.html";
         });
@@ -51,7 +51,7 @@
 
     // Setup listener for the 'My Cart' button
     $("#my-cart-button").click(function() {
-        getCartData();
+        displayCart();
         $("#modal-view-cart").modal('show');
     });
 
