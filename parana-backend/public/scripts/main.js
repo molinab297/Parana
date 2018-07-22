@@ -76,5 +76,12 @@
         addToCart(itemId, quantity);
     });
 
+    // Setup listener for when user searches for item using the search bar.
+    $("#search-bar").on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            
+        }
+    });
+
 
 })(window);
