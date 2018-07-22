@@ -84,7 +84,6 @@
                if (!err){
                    if (result.length !== 0){
                        var item = result[0];
-                       console.log("Found the item: " + item.name);
                        $("#modal-item-search-title").text(query);
                        $("#modal-item-search-pic").attr('src', item.image);
                        $("#modal-item-search-pic").attr('style', "width:300px;height:300px;");
@@ -101,9 +100,9 @@
 
                        $("#modal-item-search").modal('show');
                    } else{
-                       console.log("Could not find item!");
-
-                       $("#modal-item-search").modal('show');
+                       $("#generic-modal-title").text('Could not find item!');
+                       $("#generic-modal-body").text('Your search \"' + query + "\" did not match any products.");
+                       $("#generic-modal").modal('show');
                    }
                } else{
                    console.log(err);
