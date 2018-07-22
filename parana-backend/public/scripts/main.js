@@ -1,6 +1,10 @@
 (function (window) {
   "use strict";
-  const $ = window.jQuery;
+
+  var $ = window.jQuery;
+  var App = window.App;
+  var Customer = App.Customer;
+  var customer = new Customer();
 
   // Write user's email to the welcome message.
   dpd.users.me(function(user) {
@@ -18,6 +22,18 @@
             $("#item-title-" + i).text(item.name);
             $("#item-price-" + i).text("$" + item.price);
             $("#item-description-" + i).text(item.description);
+
+            /*
+             * Add listener to the item name so that the user can click
+             * on it to add it to their cart.
+             */
+            $("#item-title-" + i).click(function(){
+                $("#modal-add-cart-title").text("Add " + item.name + " to Cart");
+                $("#modal-add-cart-msg").text("Please enter the number of " + item.name + "s you'd like to buy.");
+                $("#modal-add-cart").attr('name', item.id);
+                $("#modal-add-cart").modal('show');
+            });
+
             i++;
           });
       } else{
@@ -37,9 +53,19 @@
 
     // Setup listener for the 'Logout' button
     $("#my-cart-button").click(function() {
-        dpd.users.me(function(me, err) {
-            console.log("unimplemented");
-        });
+      console.log("here");
+            $("#modalAddCartForm").modal('show');
+    });
+
+
+    // Setup listener for when user adds an item to their cart
+    // TODO: Make sure the quantity they enter is <= the quantity of the item in database
+    // TODO: Make field required.
+    $('#modal-add-cart-btn').on('click', function () {
+        var quantity = $('#modal-add-cart-quantity').val();
+        var itemId = $('#modal-add-cart').attr('name');
+        customer.addToCart(itemId, quantity);
+        $("#modal-add-cart").modal('hide');
     });
 
 
