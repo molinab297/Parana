@@ -11,7 +11,7 @@ function addToCart(itemId, quantity){
             console.log(error);
         }
         // Make sure the item is in stock
-        else if (item.quantity < 0){
+        else if (item.quantity <= 0){
             $("#generic-modal-title").text('Out of Stock!');
             $("#generic-modal-body").text("Sorry about that... we're currently out of stock of that item.");
             $("#generic-modal").modal('show');
@@ -26,13 +26,18 @@ function addToCart(itemId, quantity){
         else{
             console.log("Adding item with id: \"" + itemId + "\" to cart");
             dpd.users.me(function(me, err){
-
                 dpd.users.put(me.id, {cart: {$push: itemId + ":" + quantity} }, function(result, err){
                     if (err){
                         console.log(err);
                     } else {
                         console.log("Updated cart:");
                         console.log(result);
+
+                        // Update the Items Collection
+                        var itemsRemaining = item.quantity - quantity;
+                        dpd.items.put(item.id, {quantity: itemsRemaining}, function(result, err){
+                          if (err) console.log(err);
+                        })
                     }
                 })
             });
