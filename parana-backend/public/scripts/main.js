@@ -77,9 +77,29 @@
     });
 
     // Setup listener for when user searches for item using the search bar.
-    $("#search-bar").on('keyup', function (e) {
+    $('#search-bar').on('keyup', function (e) {
         if (e.keyCode === 13) {
-            
+            $('#search-bar').val('');
+            var query = $('#search-bar').val();
+            dpd.items.get({name: query}, function(result, err){
+               if (!err){
+                   if (result.length !== 0){
+                       var item = result[0];
+                       console.log("Found the item: " + item.name);
+                       $("#modal-item-search-title").text(query);
+                       $("#modal-item-search-pic").attr('src', item.image);
+                       $("#modal-item-search-pic").attr('style', "width:300px;height:300px;");
+                       $("#modal-item-search-description").text(item.description);
+                       $("#modal-item-search-price").text("$" + item.price);
+                       $("#modal-item-search-quantity").text(item.quantity);
+                       $("#modal-item-search").modal('show');
+                   } else{
+                       console.log("Could not find item!");
+                   }
+               } else{
+                   console.log(err);
+               }
+            });
         }
     });
 
