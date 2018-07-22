@@ -10,8 +10,20 @@ function addToCart(itemId, quantity){
         if (error){
             console.log(error);
         }
-        // Add the item to the users cart if it's in stock.
-        else if (quantity <= item.quantity){
+        // Make sure the item is in stock
+        else if (item.quantity < 0){
+            $("#generic-modal-title").text('Out of Stock!');
+            $("#generic-modal-body").text("Sorry about that... we're currently out of stock of that item.");
+            $("#generic-modal").modal('show');
+        }
+        // Make sure there is enough of the item to add to the user's cart
+        else if (quantity > item.quantity){
+            $("#generic-modal-title").text('Not Enough!');
+            $("#generic-modal-body").text("We're sorry, but we currently don't have " + quantity + " of those.");
+            $("#generic-modal").modal('show');
+        }
+        // Add the item to the user's cart
+        else{
             console.log("Adding item with id: \"" + itemId + "\" to cart");
             dpd.users.me(function(me, err){
 
@@ -24,10 +36,6 @@ function addToCart(itemId, quantity){
                     }
                 })
             });
-        }
-        // The item isn't in stock.
-        else{
-            // TODO: Alert user that item isn't in stock.
         }
     });
 }
