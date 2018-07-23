@@ -74,6 +74,7 @@
         var itemId = $('#modal-add-cart').attr('name');
         addToCart(itemId, quantity);
         $("#modal-add-cart").modal('hide');
+        $('#modal-add-cart-quantity').val('');
     });
 
     // Setup listener for when user searches for item using the search bar.

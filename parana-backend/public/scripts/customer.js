@@ -35,9 +35,7 @@ function addToCart(itemId, quantity){
 
                         // Update the Items Collection
                         var itemsRemaining = item.quantity - quantity;
-                        dpd.items.put(item.id, {quantity: itemsRemaining}, function(result, err){
-                          if (err) console.log(err);
-                        })
+                        dpd.items.put(item.id, {quantity: itemsRemaining});
                     }
                 })
             });
@@ -48,21 +46,33 @@ function addToCart(itemId, quantity){
 /**
  * Removes an item to the logged-in users cart.
  *
+ * TODO: Removing an item removes all entries with the same item id.
+ *
  * @param itemId The UUID of the item
  */
 function removeFromCart(itemId){
   dpd.users.me(function(me, err){
       if (!err){
-          var cart = me.cart;
-          if (cart.length !== 0){
-              cart.forEach(function(n){
-                  if (n.startsWith(itemId)){
-                      dpd.users.put(me.id, {cart: {$pull: n}});
-                  }
-              });
-          } else{
-              // TODO: Alert user that cart is empty
-              console.log("cannot remove from an empty cart");
+          const cart = me.cart;
+          for (var i = 0; i < cart.length; i++){
+
+              // Parse data retrieved from database.
+              var cartItem = cart[i].split(':');
+              var cartItemId = cartItem[0];
+              var cartItemQuantity = cartItem[1];
+
+              // If the item id was found in the user's cart, remove it
+              // and update the items quantity in the database.
+              if (itemId === cartItemId){
+                  dpd.users.put(me.id, {cart: {$pull: cart[i]}});
+                  // Update the Items Collection
+                  dpd.items.get(itemId, function(item, err){
+                      if (!err){
+                          var newAmmount = item.quantity + parseInt(cartItemQuantity, 10);
+                          dpd.items.put(item.id, {quantity: newAmmount});
+                      }
+                  });
+              }
           }
       }
   });
