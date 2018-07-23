@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 	<head>
+		<script src="/dpd.js" type="text/javascript"></script>
 		<title>Checkout</title>
 		<!-- Bootstrap core CSS -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
@@ -25,6 +26,7 @@
 				  </div>
 			  </div>
 			  <hr>
+			  <!-- Billing Page -->
 			  <div class="billing-page">
 				  <h3 class="info-heading">Billing Information</h3>
 				  <form id="billing-form">
@@ -71,6 +73,7 @@
 					  </div>
 				  </div>
 			  </div>
+			  <!-- Shipping Page -->
 			  <div class="shipping-page">
 				  <h3 class="info-heading">Shipping Information</h3>
 				  <form id="shipping-form">
@@ -109,13 +112,10 @@
 					  </div>
 				  </div>
 			  </div>
+			  <!-- Payment Page -->
 			  <div class="payment-page">
 				  <h3 class="info-heading">Payment Information</h3>
 				  <form id="payment-form">
-					  <div class="form-group">
-						  <input type="radio" name="credit" value="false"> Credit<br>
-						  <input type="radio" name="dedit" value="false"> Dedit<br>
-					  </div>
 					  <div class="row form-group">
 						  <div class="col-xs-6">
 							  <label for="card-name">Name on Card</label>
@@ -152,7 +152,7 @@
 				  <p>Cart <span class="cart-num badge"></span></p>
 			  </div>
 			  <hr>
-			  <ul class="list-group" id="cart-list">
+			  <ul id="cart-items-list" class="list-group" >
 				  <li class="list-group-item">Item 1 <span id="item-1">$3.49</span></li>
 				  <li class="list-group-item">Item 2 <span id="item-2">$5.99</span></li>
 			  </ul>

@@ -15,7 +15,8 @@
   // Write user's email to the welcome message.
   dpd.users.me(function(user) {
     if (user) {
-      $("h1").text("Welcome, " + user.username + "!");
+		var shortUsername = user.username.substr(0, user.username.indexOf('@'));
+  		$("#welcome-msg").text("Welcome, " + shortUsername + "!");
     }
   });
 
@@ -112,6 +113,16 @@
         $("#cart-list").empty();
     });
 
+	// Setup listener for the 'Checkout' button when viewing the cart, goes to checkout page
+	$('#checkout-btn').on('click', function () {
+		dpd.users.me(function(user) {
+  			if (user.cart.length > 0) {
+   				location.href = "checkout.html";
+  			} else {
+				$('#empty-cart-msg').fadeIn().delay(700).fadeOut();
+			}
+		});
+	});
 
     // Setup listener for when user adds an item to their cart
     // TODO: Make field required.
