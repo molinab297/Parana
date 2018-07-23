@@ -3,6 +3,14 @@
 
   var $ = window.jQuery;
   var App = window.App;
+  var FormHandler = App.FormHandler;
+  var Validation = App.Validation;
+
+  // **** FORM SELECTORS ****
+  const NEW_EMAIL_FORM_SELECTOR = "[data-email-form=\"form\"]";
+  const NEW_PASSWORD_FORM_SELECTOR = "[data-password-form=\"form\"]";
+  const newEmailFormHandler = new FormHandler(NEW_EMAIL_FORM_SELECTOR);
+  const newPasswordFormHandler = new FormHandler(NEW_PASSWORD_FORM_SELECTOR);
 
   // Write user's email to the welcome message.
   dpd.users.me(function(user) {
@@ -40,11 +48,49 @@
       }
     });
 
+    // Setup listener for the 'My Account' button.
+    // This also setups the listeners for thw two forms within
+    // the 'My Account' modal.
+    $('#my-account-button').on('click', function () {
+
+        // Display modify account pop-up window
+        $("#modal-modify-account").modal('show');
+
+        // Show the email input field and the 'update' button if
+        // user presses the 'change email' button
+        $('#modal-change-email').on('click', function () {
+            $("#new-email-form").show();
+        });
+
+        // Show the password input fields and the 'update' button if
+        // user presses the 'change password' button
+        $('#modal-change-password').on('click', function () {
+            $("#new-password-form").show();
+        });
+
+        // Hide everything if user clicks off the popup
+        $('#modal-modify-account').on('hidden.bs.modal', function () {
+            $("#new-email-form").hide();
+            $("#new-password-form").hide();
+        });
+
+        // Set up error checking for new email field
+        newEmailFormHandler.addSubmitHandler(function (data) {
+            console.log("new email form handler!");
+        });
+        newEmailFormHandler.addInputHandler(Validation.isValidEmail);
+
+        // Set up error checking for new password field
+        newPasswordFormHandler.addSubmitHandler(function (data) {
+            console.log("new password form handler!");
+        });
+
+    });
 
 
     // Setup listener for the 'Logout' button
     $("#logout-btn").click(function() {
-        dpd.users.logout(function(me, err) {
+        dpd.users.logout(function() {
             location.href = "welcome.html";
         });
     });

@@ -207,6 +207,41 @@
     </div>
     <!-- /.container -->
 
+
+    <!-- Popup window for changing account information -->
+    <div id="modal-modify-account" name="modal-item-id" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="modal-modify-account-title" class="modal-title">Change Account Settings</h4>
+          </div>
+          <div class="modal-body">
+
+            <!-- Modify email stuff -->
+            <button id ="modal-change-email" name="modal-change-email" type="submit" class="btn btn-secondary"> Change Email </button>
+            <form data-email-form="form" id ="new-email-form" style="display: none;">
+              <p class="lead text-xs-center"></p>
+              <label id= "new-email-text" for="height">Enter new email:</label>
+              <input id="modal-modify-email-input" name="emailAddress" type="text" autofocus required />
+              <button id ="update-email-btn" name="update-email-btn" type="submit" class="btn btn-primary"> Update </button>
+            </form>
+
+            <!-- Modify password stuff -->
+            <button id ="modal-change-password" name="modal-change-password" type="submit" class="btn btn-secondary"> Change Password </button>
+            <form data-password-form="form" id = "new-password-form" style="display: none;">
+              <p class="lead text-xs-center"></p>
+              <label for="height">Enter old password:</label>
+              <input id="modal-modify-password-input-old"  type="text" required />
+              <label for="height">Enter new password:</label>
+              <input id="modal-modify-password-input-new" type="text" required />
+              <button id ="update-password-btn" name="update-password-btn" type="submit" class="btn btn-primary"> Update </button>
+            </form>
+
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <!-- Popup window for adding items to the user's cart -->
     <div id="modal-add-cart" name="modal-item-id" class="modal fade">
       <div class="modal-dialog">
@@ -305,6 +340,8 @@
     </footer>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/validation.js" charset="utf-8"></script>
+    <script src="scripts/formhandler.js" charset="utf-8"></script>
     <script src="scripts/customer.js" charset="utf-8"></script>
     <script src="scripts/main.js" charset="utf-8"></script>
   </body>
