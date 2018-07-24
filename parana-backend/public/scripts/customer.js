@@ -26,7 +26,8 @@ function addToCart(itemId, quantity){
         else{
             console.log("Adding item with id: \"" + itemId + "\" to cart");
             dpd.users.me(function(me, err){
-                dpd.users.put(me.id, {cart: {$push: itemId + ":" + quantity} }, function(result, err){
+				// cart string = "itemID:quantity:name:price"
+                dpd.users.put(me.id, {cart: {$push: itemId + ":" + quantity + ":" + item.name + ":" + item.price} }, function(result, err){
                     if (err){
                         console.log(err);
                     } else {
@@ -131,7 +132,7 @@ function displayCart(){
 
             }
         } else{
-            // TODO: Alert the user that their cart is empty.
+            $('#empty-cart-msg').show();
         }
     });
 }

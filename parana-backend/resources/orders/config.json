@@ -17,13 +17,21 @@
 			"id": "date",
 			"order": 1
 		},
+		"itemIDs": {
+			"name": "itemIDs",
+			"type": "array",
+			"typeLabel": "array",
+			"required": true,
+			"id": "itemIDs",
+			"order": 2
+		},
 		"itemNames": {
 			"name": "itemNames",
 			"type": "array",
 			"typeLabel": "array",
 			"required": true,
 			"id": "itemNames",
-			"order": 2
+			"order": 3
 		},
 		"itemPrices": {
 			"name": "itemPrices",
@@ -31,15 +39,23 @@
 			"typeLabel": "array",
 			"required": true,
 			"id": "itemPrices",
-			"order": 3
+			"order": 4
 		},
-		"totalCost": {
-			"name": "totalCost",
+		"itemQuantities": {
+			"name": "itemQuantities",
 			"type": "array",
 			"typeLabel": "array",
 			"required": true,
+			"id": "itemQuantities",
+			"order": 5
+		},
+		"totalCost": {
+			"name": "totalCost",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
 			"id": "totalCost",
-			"order": 4
+			"order": 6
 		}
 	}
 }
