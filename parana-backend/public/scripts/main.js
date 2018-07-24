@@ -27,6 +27,7 @@
       if (!error){
           var i = 1;
           results.forEach(function(item){
+
             $("#image" + i).attr('src', item.image);
             $("#item-title-" + i).text(item.name);
             $("#item-price-" + i).text("$" + item.price);
