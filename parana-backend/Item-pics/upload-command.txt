@@ -1,0 +1,1 @@
+dpd.items.post({image:"", name:"", description:"", price:"", quantity:""});
