@@ -9,8 +9,10 @@
   // **** FORM SELECTORS ****
   const NEW_EMAIL_FORM_SELECTOR = "[data-email-form=\"form\"]";
   const NEW_PASSWORD_FORM_SELECTOR = "[data-password-form=\"form\"]";
+  const ADD_ITEM_FORM_SELECTOR = "[add-item-form=\"form\"]";
   const newEmailFormHandler = new FormHandler(NEW_EMAIL_FORM_SELECTOR);
   const newPasswordFormHandler = new FormHandler(NEW_PASSWORD_FORM_SELECTOR);
+  const newAddItemFormHandler = new FormHandler(ADD_ITEM_FORM_SELECTOR);
 
   // Write user's email to the welcome message.
   dpd.users.me(function(user) {
@@ -50,15 +52,11 @@
     });
 
 
-    /******************************************************************************/
-    /**
-     * Setup listener for the 'My Account' button.
-     * This also setups the listeners for thw two forms within
-     * the 'My Account' modal.
+    /******************************************************************************
+     * Setup all the listeners for the 'My Account' button. This also setups the
+     * listeners for thw two forms within the 'My Account' modal.
      */
     $('#my-account-button').on('click', function () {
-
-
 
         // Display modify account pop-up window
         $("#modal-modify-account").modal('show');
@@ -81,6 +79,7 @@
             $("#new-password-form").hide();
         });
 
+
         // Set up error checking for new email field
         newEmailFormHandler.addInputHandler(Validation.isValidEmail);
         newEmailFormHandler.addSubmitHandler(function (data) {
@@ -91,8 +90,9 @@
         });
 
         // Set up error checking for new password field
+        // TODO: Can't change password??
         newPasswordFormHandler.addSubmitHandler(function (data) {
-            if (data.oldPassword !== data.newPassword){
+            if (data.newPassword !== data.confirmPassword){
                 // display error
                 $("#passwords-must-match-error-text").show();
             } else{
@@ -115,7 +115,7 @@
     });
 
     // Setup listener for the 'My Cart' button
-    $("#my-cart-button").click(function(e) {
+    $("#my-cart-button").click(function() {
         displayCart();
         $("#modal-view-cart").modal('show');
     });
@@ -143,14 +143,13 @@
 	});
 
     // Setup listener for when user adds an item to their cart
-    // TODO: Make field required.
-    $('#modal-add-cart-btn').on('click', function () {
-        var quantity = $('#modal-add-cart-quantity').val();
-        var itemId = $('#modal-add-cart').attr('name');
-        addToCart(itemId, quantity);
+    newAddItemFormHandler.addSubmitHandler(function(result){
+        const itemId = $('#modal-add-cart').attr('name');
+        addToCart(itemId, result.quantity);
         $("#modal-add-cart").modal('hide');
-        $('#modal-add-cart-quantity').val('');
+        $("#quantity").val('');
     });
+
 
     // Setup listener for when user searches for item using the search bar.
     $('#search-bar').on('keyup', function (e) {

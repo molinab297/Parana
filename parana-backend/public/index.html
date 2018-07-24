@@ -248,7 +248,7 @@
             <button id ="modal-change-email" name="modal-change-email" type="submit" class="btn btn-secondary"> Change Email </button>
             <form data-email-form="form" id ="new-email-form" style="display: none;">
               <p class="lead text-xs-center"></p>
-              <label id= "new-email-text" for="height">Enter new email:</label>
+              <label id= "new-email-text" for="modal-modify-email-input">Enter new email:</label>
               <input id="modal-modify-email-input" name="emailAddress" type="text" autofocus required />
               <button id ="update-email-btn" name="update-email-btn" type="submit" class="btn btn-primary"> Update </button>
             </form>
@@ -257,21 +257,22 @@
             <button id ="modal-change-password" name="modal-change-password" type="submit" class="btn btn-secondary"> Change Password </button>
             <form data-password-form="form" id = "new-password-form" style="display: none;">
               <p class="lead text-xs-center"></p>
-              <label for="height">Enter old password:</label>
-              <input id="modal-modify-password-input-old" name="oldPassword" type="text" autofocus required />
-              <label for="height">Enter new password:</label>
+              <label for="modal-modify-password-input-new">Enter new password:</label>
               <input id="modal-modify-password-input-new" name="newPassword" type="text" required />
+              <label for="modal-modify-password-input-new">Confirm new password:</label>
+              <input id="modal-modify-password-input-confirm" name="confirmPassword" type="text" required />
               <button id ="update-password-btn" name="update-password-btn" type="submit" class="btn btn-primary"> Update </button>
-              <p id="passwords-must-match-error-text" class="lead text-xs-center" style="color:red; display: none;">Passwords must match!</p>
+              <p id="passwords-error-text" class="lead text-xs-center" style="color:red; display: none;">Passwords must match!</p>
             </form>
-
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
     <!-- Popup window for adding items to the user's cart -->
-    <div id="modal-add-cart" name="modal-item-id" class="modal fade">
+    <!-- This name property gets populated with the item ID, so that adding items
+     to the cart works. -->
+    <div id="modal-add-cart" name="" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -279,11 +280,13 @@
           </div>
           <div class="modal-body">
             <p id="modal-add-cart-msg" class="lead text-xs-center"></p>
-            <label for="height">Quantity:</label>
-            <input id="modal-add-cart-quantity" type="number" id="height" name="height" step="1" autofocus required />
-          </div>
-          <div class="modal-footer">
-            <button id ="modal-add-cart-btn" name="modal-add-cart-btn" type="submit" class="btn btn-primary"> Add </button>
+            <form add-item-form="form">
+            <label for="quantity">Quantity:</label>
+            <input id="quantity" name="quantity" type="number" step="1" autofocus required />
+              <div class="modal-footer">
+                <button id ="modal-add-cart-btn" name="modal-add-cart-btn" type="submit" class="btn btn-primary"> Add </button>
+              </div>
+            </form>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -305,7 +308,7 @@
 
           <div class="modal-footer">
 			<button id="checkout-btn" name="checkout-btn" type="submit" class="btn btn-secondary"> Checkout </button>
-            <button id="modal-view-cart-btn" name="modal-add-cart-btn" type="submit" class="btn btn-primary"> Done </button>
+            <button id="modal-view-cart-btn" name="modal-view-cart-btn" type="submit" class="btn btn-primary"> Done </button>
           </div>
 
         </div><!-- /.modal-content -->
