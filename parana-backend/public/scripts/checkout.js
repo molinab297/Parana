@@ -7,50 +7,44 @@
 
   // shopping cart calculations
 
-	var name = "empty";
+	const taxRate = .0725;				// CA tax rate
+	const shippingRate = 1.4324;		// flat shipping cost per item
+
 	dpd.users.me(function(user) {
-		name = user.username;
-		console.log(name);	// this ouput prints last
+
+		var subTotal = 0;
+		var shippingCost = 0;
+
+		var cartItems = user.cart;
+		cartItems.forEach(function(item) {
+
+			// split "itemID:quantity:name:price"
+			var itemElems = item.split(":");
+			var itemQuantity = itemElems[1];
+			var itemName = itemElems[2];
+			var itemPrice = itemQuantity * itemElems[3];
+
+			// show item cost on checkout page
+			var itemHTML = "<li class='list-group-item'>" + itemName + " (" +
+				itemQuantity + ") <span>$" + itemPrice.toFixed(2) +"</span></li>";
+			$('#cart-items-list').append(itemHTML);
+
+			subTotal += Number(itemPrice);
+			shippingCost += shippingRate * itemQuantity;
+		});
+
+		// calculate cart costs
+		var numItems = cartItems.length;
+		var taxCost = subTotal * taxRate;
+		var total = subTotal + shippingCost + taxCost;
+
+		// display cart costs
+		$('.cart-num').text(numItems);
+		$('#subtotal').text('$' + subTotal.toFixed(2));
+		$('#shipping').text('$' + shippingCost.toFixed(2));
+		$('#tax').text('$' + taxCost.toFixed(2));
+		$('#total').text('$' + total.toFixed(2));
 	});
-	console.log(name);		// this ouput prints first???
-
-
-	//	var numItems = 0;
-	//	dpd.users.me(function(user) {
-	//		numItems = user.cart.length;
-	//	});
-	// var cartItems = user.cart;
-	// for (var i = 0; i < cartItems.length; i++) {
-	// 	var item = cartItems[i];
-	// 	var itemID = item.substr(0, item.indexOf(':'));
-	// 	dpd.items.get(itemID, function (result) {
-	// 		var itemName = result.name;
-	//
-	// 		var itemQuantity = item.substr(item.indexOf(':')+1, item.length);
-	// 		var itemHTML = "<li class='list-group-item'>" + itemName + " (" + itemQuantity + ") <span>$3.49</span></li>";
-	// 		$('#cart-items-list').append(itemHTML);
-	// 	});
-	// }
-	//
-	//
-	//
-	// var item1 = $('#item-1').text().substr(1);
-	// var item2 = $('#item-2').text().substr(1);
-	// var taxRate = .0725;
-	// var shippingRate = 1.4324;
-	//
-	// var subtotal = Number(item1) + Number(item2);
-	// var shippingCost = shippingRate * numItems;
-	// var taxCost = subtotal * taxRate;
-	// var total = subtotal + shippingCost + taxCost;
-	//
-	//$('.cart-num').text(numItems);
-	// $('#subtotal').text('$' + subtotal);
-	// $('#shipping').text('$' + shippingCost.toFixed(2));
-	// $('#tax').text('$' + taxCost.toFixed(2));
-	// $('#total').text('$' + total.toFixed(2));
-
-
 
   // show info page functions
 
