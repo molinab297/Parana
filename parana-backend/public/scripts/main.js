@@ -121,12 +121,6 @@
         $("#modal-view-cart").modal('show');
     });
 
-    // Setup listener for the 'Done' button when viewing the cart
-    $('#modal-view-cart-btn').on('click', function () {
-        $("#modal-view-cart").modal('hide');
-        $("#cart-list").empty();
-    });
-
     // Clear the cart if the user clicks off of the modal
     $('#modal-view-cart').on('hidden.bs.modal', function () {
         $("#cart-list").empty();
