@@ -49,10 +49,16 @@
       }
     });
 
-    // Setup listener for the 'My Account' button.
-    // This also setups the listeners for thw two forms within
-    // the 'My Account' modal.
+
+    /******************************************************************************/
+    /**
+     * Setup listener for the 'My Account' button.
+     * This also setups the listeners for thw two forms within
+     * the 'My Account' modal.
+     */
     $('#my-account-button').on('click', function () {
+
+
 
         // Display modify account pop-up window
         $("#modal-modify-account").modal('show');
@@ -76,17 +82,29 @@
         });
 
         // Set up error checking for new email field
-        newEmailFormHandler.addSubmitHandler(function (data) {
-            console.log("new email form handler!");
-        });
         newEmailFormHandler.addInputHandler(Validation.isValidEmail);
+        newEmailFormHandler.addSubmitHandler(function (data) {
+            // Update the user's email
+            dpd.users.me(function(user){
+                dpd.users.put(user.id, {username: data.emailAddress});
+            });
+        });
 
         // Set up error checking for new password field
         newPasswordFormHandler.addSubmitHandler(function (data) {
-            console.log("new password form handler!");
+            if (data.oldPassword !== data.newPassword){
+                // display error
+                $("#passwords-must-match-error-text").show();
+            } else{
+                // Update the user's password
+                dpd.users.me(function(user){
+                    dpd.users.put(user.password, {password: data.newPassword});
+                });
+            }
         });
 
     });
+    /******************************************************************************/
 
 
     // Setup listener for the 'Logout' button
