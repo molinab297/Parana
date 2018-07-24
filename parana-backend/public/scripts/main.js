@@ -119,7 +119,7 @@
   			if (user.cart.length > 0) {
    				location.href = "checkout.html";
   			} else {
-				$('#empty-cart-msg').fadeIn().delay(700).fadeOut();
+				$('#empty-cart-msg').fadeOut(75).fadeIn(75).fadeOut(75).fadeIn(75);
 			}
 		});
 	});

@@ -132,7 +132,7 @@ function displayCart(){
 
             }
         } else{
-            // TODO: Alert the user that their cart is empty.
+            $('#empty-cart-msg').show();
         }
     });
 }
