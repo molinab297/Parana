@@ -82,12 +82,22 @@
 
 
         // Set up error checking for new email field
-        newEmailFormHandler.addInputHandler(Validation.isValidEmail);
+        newEmailFormHandler.addInputHandler(Validation.isValidEmail, "[name=\"emailAddress\"]");
+        newEmailFormHandler.addInputHandler(Validation.isValidEmail, "[name=\"confirmEmailAddress\"]");
         newEmailFormHandler.addSubmitHandler(function (data) {
-            // Update the user's email
-            dpd.users.me(function(user){
-                dpd.users.put(user.id, {username: data.emailAddress});
-            });
+            if (data.emailAddress !== data.confirmEmailAddress){
+                // display error
+                $("#email-update-success").hide();
+                $("#email-error-text").show();
+            }
+            else{
+                // Update the user's email
+                dpd.users.me(function(user){
+                    dpd.users.put(user.id, {username: data.emailAddress});
+                });
+                $("#email-error-text").hide();
+                $("#email-update-success").show();
+            }
         });
 
         // Set up error checking for new password field
@@ -101,6 +111,7 @@
                 dpd.users.me(function(user){
                     dpd.users.put(user.password, {password: data.newPassword});
                 });
+                $("#passwords-update-success").show();
             }
         });
 

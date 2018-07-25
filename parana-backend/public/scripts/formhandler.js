@@ -44,9 +44,9 @@
    *
    * @param fn The validation method to apply on the text input by the user.
    */
-  FormHandler.prototype.addInputHandler = function(fn){
+  FormHandler.prototype.addInputHandler = function(fn, selector){
     // Add event handler for when user inputs data into the Email field
-    this.$formElement.on("input", "[name=\"emailAddress\"]", function (event){
+    this.$formElement.on("input", selector, function (event){
       var emailAddress = event.target.value;
       var message = "";
       if (fn(emailAddress)){

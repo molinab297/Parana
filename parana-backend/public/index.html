@@ -237,20 +237,25 @@
             <button id ="modal-change-email" name="modal-change-email" type="submit" class="btn btn-secondary"> Change Email </button>
             <form data-email-form="form" id ="new-email-form" style="display: none;">
               <p class="lead text-xs-center"></p>
-              <label id= "new-email-text" for="modal-modify-email-input">Enter new email:</label>
-              <input id="modal-modify-email-input" name="emailAddress" type="text" autofocus required />
+              <label id= "new-email-text" for="modal-modify-email-input"></label>
+              <input id="modal-modify-email-input" name="emailAddress" type="text" placeholder="Enter new email" autofocus required />
+              <label id= "confirm-email-text" for="modal-modify-email-input"></label>
+              <input id="modal-modify-email-input-confirm" name="confirmEmailAddress" type="text" placeholder="Confirm email" required />
               <button id ="update-email-btn" name="update-email-btn" type="submit" class="btn btn-primary"> Update </button>
+              <p id="email-update-success" class="lead text-xs-center" style="color:green; display: none;">Email updated!</p>
+              <p id="email-error-text" class="lead text-xs-center" style="color:red; display: none;">Emails must match!</p>
             </form>
 
             <!-- Modify password stuff -->
             <button id ="modal-change-password" name="modal-change-password" type="submit" class="btn btn-secondary"> Change Password </button>
             <form data-password-form="form" id = "new-password-form" style="display: none;">
               <p class="lead text-xs-center"></p>
-              <label for="modal-modify-password-input-new">Enter new password:</label>
-              <input id="modal-modify-password-input-new" name="newPassword" type="text" required />
-              <label for="modal-modify-password-input-new">Confirm new password:</label>
-              <input id="modal-modify-password-input-confirm" name="confirmPassword" type="text" required />
+              <label for="modal-modify-password-input-new"></label>
+              <input id="modal-modify-password-input-new" name="newPassword" type="text" placeholder="Enter new password" autofocus required />
+              <label for="modal-modify-password-input-new"></label>
+              <input id="modal-modify-password-input-confirm" name="confirmPassword" type="text" placeholder="Confirm password" required />
               <button id ="update-password-btn" name="update-password-btn" type="submit" class="btn btn-primary"> Update </button>
+              <p id="passwords-update-success" class="lead text-xs-center" style="color:green; display: none;">Password updated!</p>
               <p id="passwords-error-text" class="lead text-xs-center" style="color:red; display: none;">Passwords must match!</p>
             </form>
           </div>
@@ -260,7 +265,7 @@
 
     <!-- Popup window for adding items to the user's cart -->
     <!-- This name property gets populated with the item ID, so that adding items
-     to the cart works. -->
+     to the cart works (that's why it's currently empty). -->
     <div id="modal-add-cart" name="" class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -272,7 +277,7 @@
             <p id="modal-add-cart-msg" class="lead text-xs-center"></p>
             <form add-item-form="form">
             <label for="quantity">Quantity:</label>
-            <input id="quantity" name="quantity" type="number" step="1" autofocus required />
+            <input id="quantity" name="quantity" type="number" min="1" step="1" autofocus required />
               <div class="modal-footer">
                 <button id ="modal-add-cart-btn" name="modal-add-cart-btn" type="submit" class="btn btn-primary"> Add </button>
               </div>
