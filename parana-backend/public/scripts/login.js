@@ -38,9 +38,9 @@
   });
 
   // Add input handler for the login screen to validate the email
-  loginFormHandler.addInputHandler(Validation.isValidEmail);
+  loginFormHandler.addInputHandler(Validation.isValidEmail, "[name=\"emailAddress\"]");
   // Add input handler for the register screen to validate the email
-  registerFormHandler.addInputHandler(Validation.isValidEmail);
+  registerFormHandler.addInputHandler(Validation.isValidEmail, "[name=\"emailAddress\"]");
 
   /*
    * Add a form handler for the login page.
