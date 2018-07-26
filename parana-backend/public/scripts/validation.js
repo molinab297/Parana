@@ -1,3 +1,8 @@
+/***
+ * This module contains all of the functions for validating any sort of input fields.
+ *
+ * @Author Blake Molina
+ */
 (function (window) {
   "use strict";
   var App = window.App || {};

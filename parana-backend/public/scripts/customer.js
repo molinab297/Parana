@@ -47,8 +47,6 @@ function addToCart(itemId, quantity){
 /**
  * Removes an item to the logged-in users cart.
  *
- * TODO: Removing an item removes all entries with the same item id.
- *
  * @param itemId The UUID of the item
  */
 function removeFromCart(itemId){
@@ -82,7 +80,7 @@ function removeFromCart(itemId){
 /**
  * Gets and displays all of the cart data from the current, logged-in user.
  * The cart data in deployd is stored as an array of strings in the
- * format 'itemId:itemQuantity'.
+ * format 'itemID:quantity:name:price'.
  */
 function displayCart(){
     dpd.users.me(function(me, err){

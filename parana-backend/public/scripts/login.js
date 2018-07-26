@@ -1,3 +1,8 @@
+/***
+ * This module contains all of the logic for the login/register page.
+ *
+ * @Author Blake Molina
+ */
 (function (window) {
   "use strict";
 
