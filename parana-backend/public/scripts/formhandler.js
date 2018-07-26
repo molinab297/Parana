@@ -1,3 +1,10 @@
+/***
+ * This module contains a helper class for handling forms. To validate a form,
+ * call the addSubmitHandler function and pass in a callback function that'll be performed
+ * on the input data by the user after it's validated.
+ *
+ * @Author Animesh Chaudhry
+ */
 (function (window) {
   "use strict";
   var App = window.App || {};
@@ -40,7 +47,6 @@
    * each time the user modifies the Email field within the form, they should be notified
    * if the email they just entered is a valid email address.
    *
-   * TODO: Need to make this more generic to accept any selector.
    *
    * @param fn The validation method to apply on the text input by the user.
    */

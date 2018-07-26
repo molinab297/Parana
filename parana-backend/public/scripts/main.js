@@ -1,3 +1,11 @@
+/***
+ * This module contains all of the front end logic and validation for the main
+ * home page. For example, when the user clicks a item to add it to their cart,
+ * a form pops up asking how many of the item the user wants to add. The animations
+ * and validation checking for that form are written here.
+ *
+ * @Author Blake Molina
+ */
 (function (window) {
   "use strict";
 
@@ -101,16 +109,17 @@
         });
 
         // Set up error checking for new password field
-        // TODO: Can't change password??
         newPasswordFormHandler.addSubmitHandler(function (data) {
             if (data.newPassword !== data.confirmPassword){
                 // display error
-                $("#passwords-must-match-error-text").show();
+                console.log("here");
+                $("#passwords-error-text").show();
             } else{
                 // Update the user's password
                 dpd.users.me(function(user){
-                    dpd.users.put(user.password, {password: data.newPassword});
+                    dpd.users.put(user.id, {password: data.newPassword});
                 });
+                $("#passwords-error-text").hide();
                 $("#passwords-update-success").show();
             }
         });
