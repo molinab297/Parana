@@ -2,6 +2,8 @@
  * This module contains all of the functions for validating any sort of input fields.
  *
  * @Author Blake Molina
+ * @Date 7/26/18
+ *
  */
 (function (window) {
   "use strict";

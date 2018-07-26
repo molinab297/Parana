@@ -4,6 +4,7 @@
  * on the input data by the user after it's validated.
  *
  * @Author Animesh Chaudhry
+ * @Date 7/26/18
  */
 (function (window) {
   "use strict";

@@ -5,6 +5,7 @@
  * and validation checking for that form are written here.
  *
  * @Author Blake Molina
+ * @Date 7/26/18
  */
 (function (window) {
   "use strict";

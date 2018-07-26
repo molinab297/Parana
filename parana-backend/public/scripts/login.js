@@ -2,6 +2,7 @@
  * This module contains all of the logic for the login/register page.
  *
  * @Author Blake Molina
+ * @Date 7/26/18
  */
 (function (window) {
   "use strict";
