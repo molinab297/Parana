@@ -147,6 +147,17 @@
         $("#cart-list").empty();
     });
 
+    // Setup listener for the 'Order History' button
+    $("#order-history-button").click(function() {
+        displayOrderHistory();
+        $("#modal-view-order-history").modal('show');
+    });
+
+    // Clear the order history if the user clicks off of the modal
+    $('#modal-view-order-history').on('hidden.bs.modal', function () {
+        $("#order-list").empty();
+    });
+
 	// Setup listener for the 'Checkout' button when viewing the cart, goes to checkout page
 	$('#checkout-btn').on('click', function () {
 		dpd.users.me(function(user) {
