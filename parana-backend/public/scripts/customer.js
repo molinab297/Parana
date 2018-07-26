@@ -137,7 +137,62 @@ function displayCart(){
     });
 }
 
+/**
+ * Gets and displays all of the order history data matching the id of the logged-in user.
+ */
+function displayOrderHistory(){
+    dpd.users.me(function(me, err){
+        if (!err) {
+            dpd.orders.get({"userId":me.id}, function (orders) {
+                if (orders.length !== 0) {
+                    for (var i = 0; i < orders.length; i++) {
+                        var order = orders[i];
+                        var orderId = order.id;
+                        var orderDate = order.date;
+                        var orderTotalCost = order.totalCost;
 
+                        // Create order date entry
+                        var ul = document.getElementById("order-list");
+                        var li = document.createElement('li');
+                        li.setAttribute("id", "order-list-order" + orderId + "-date");
+                        li.appendChild(document.createTextNode("Order "+ (i+1) + " (" + orderDate + ")"));
+                        ul.appendChild(li);
+
+                        for (var j = 0; j < order.itemIDs.length; j++) {
+                            // Create new item entry
+                            var itemId = order.itemIDs[j];
+                            var itemName = order.itemNames[j];
+                            var itemPrice = order.itemPrices[j];
+                            var itemQty = order.itemQuantities[j];
+                            var ul = document.getElementById("order-list");
+                            var li = document.createElement('li');
+                            li.setAttribute("id", "order-list-item" + itemId);
+                            li.appendChild(document.createTextNode("Item Name: " + itemName + " ------ "));
+                            li.appendChild(document.createTextNode("Price: $" + itemPrice + " ------ "));
+                            li.appendChild(document.createTextNode("Qty: " + itemQty));
+
+                            ul.appendChild(li);
+                        }
+
+                        // Create order total cost entry
+                        var ul = document.getElementById("order-list");
+                        var li = document.createElement('li');
+                        li.setAttribute("id", "order-list-order" + orderId + "-total");
+                        li.appendChild(document.createTextNode("Total Cost: $" + orderTotalCost.toFixed(2)));
+                        ul.appendChild(li);
+
+                        var hr = document.createElement("hr");
+                        ul.appendChild(hr);
+                    }
+                } else {
+                    $('#empty-order-history-msg').show();
+                }
+            });
+        } else {
+            console.log(err);
+        }
+    });
+}
 
 
 
