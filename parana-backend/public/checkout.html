@@ -13,6 +13,7 @@
 		  <h1>Checkout</h1>
 	  </div>
 	  <div class="container checkout">
+		  <!-- Information Forms on Left Side -->
 		  <div class="col-xs-9 buyer-info panel">
 			  <div class="row info-select text-center">
 				  <div class="col-xs-4 checkout-heading">
@@ -32,29 +33,36 @@
 				  <form id="billing-form">
 					  <div class="row">
 						  <div class="col-xs-6 form-group">
-							  <input id="first-name" class="form-control" name="firstName" placeholder="First Name" value="" type="text">
+							  <label for="first-name">First Name</label>
+							  <input id="first-name" class="form-control" name="firstName" value="" type="text">
 						  </div>
 						  <div class="col-xs-6 form-group">
-							  <input id="last-name" class="form-control" name="lastName" placeholder="Last Name" value="" type="text">
+							  <label for="last-name">Last Name</label>
+							  <input id="last-name" class="form-control" name="lastName" value="" type="text">
 						  </div>
 					  </div>
 					  <div class="form-group">
-							  <input id="billing-address" class="form-control" name="billingAddress" placeholder="Address" value="" type="text">
+						  <label for="billing-address">Address</label>
+							  <input id="billing-address" class="form-control" name="billingAddress" value="" type="text">
 					  </div>
 					  <div class="row">
 						  <div class="col-xs-6 form-group">
-							  <input id="billing-city" class="form-control" name="billingCity" placeholder="City" value="" type="text">
+							  <label for="billing-city">City</label>
+							  <input id="billing-city" class="form-control" name="billingCity" value="" type="text">
 						  </div>
 						  <div class="col-xs-6 form-group">
-							  <input id="billing-zip-code" class="form-control" name="billingZip" placeholder="Zip Code" value="" type="text">
+							  <label for="billing-zip-code">Zip Code</label>
+							  <input id="billing-zip-code" class="form-control" name="billingZip" value="" type="text">
 						  </div>
 					  </div>
 					  <div class="row">
 						  <div class="col-xs-6 form-group">
-								<input id="billing-state" class="form-control" name="billingState" placeholder="State" value="" type="text">
+							  <label for="billing-state">State</label>
+								<input id="billing-state" class="form-control" name="billingState" value="" type="text">
 						  </div>
 						  <div class="col-xs-6 form-group">
-							 <input id="billing-country" class="form-control" name="billingCountry" placeholder="Country" value="" type="text">
+							  <label for="billing-country">Country</label>
+							 <input id="billing-country" class="form-control" name="billingCountry" value="" type="text">
 						  </div>
 					  </div>
 					  <div class="form-group">
@@ -72,22 +80,27 @@
 				  <h3 class="info-heading">Shipping Information</h3>
 				  <form id="shipping-form">
 					  <div class="form-group">
-							  <input id="shipping-address" class="form-control" name="shippingAddress" placeholder="Address" value="" type="text">
+						  		<label for="shipping-address">Address</label>
+							  <input id="shipping-address" class="form-control" name="shippingAddress" value="" type="text">
 					  </div>
 					  <div class="row">
 						  <div class="col-xs-6 form-group">
-							  <input id="shipping-city" class="form-control" name="shippingCity" placeholder="City" value="" type="text">
+							  <label for="shipping-city">City</label>
+							  <input id="shipping-city" class="form-control" name="shippingCity" value="" type="text">
 						  </div>
 						  <div class="col-xs-6 form-group">
-							  <input id="shipping-zip-code" class="form-control" name="shippingZip" placeholder="Zip Code" value="" type="text">
+							  <label for="shipping-zip-code">Zip Code</label>
+							  <input id="shipping-zip-code" class="form-control" name="shippingZip" value="" type="text">
 						  </div>
 					  </div>
 					  <div class="row">
 						<div class="col-xs-6 form-group">
-							<input id="shipping-state" class="form-control" name="shippingState" placeholder="State" value="" type="text">
+							<label for="shipping-state">State</label>
+							<input id="shipping-state" class="form-control" name="shippingState" value="" type="text">
 						</div>
 						<div class="col-xs-6 form-group">
-							<input id="shipping-country" class="form-control" name="shipping Country" placeholder="Country" value="" type="text">
+							<label for="shipping-country">Country</label>
+							<input id="shipping-country" class="form-control" name="shipping Country" value="" type="text">
 						</div>
 					  </div>
 				  </form>
@@ -140,6 +153,7 @@
 				  </div>
 			  </div>
 		  </div>
+		  <!-- Cart Display -->
 		  <div class="col-xs-3 cart panel">
 			  <div class="checkout-heading cart-heading text-center">
 				  <p>Cart<span class="cart-num badge"></span></p>
@@ -154,10 +168,21 @@
 			  <p>Total <span id="total">$</span></p>
 		  </div>
 	  </div>
-    <!-- Bootstrap core JavaScript
-    =================================<script src="scripts/customer.js" charset="utf-8"></script>================= -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" charset="utf-8"></script>
+
+	  <!-- Checkout Complete Modal -->
+	  <div class="modal fade" id="return-home-modal" tabindex="-1" role="dialog" aria-labelledby="newsletterModal" aria-hidden="true">
+	          <div class="modal-dialog">
+	              <div class="modal-content">
+	                  <div class="modal-header">
+	                      <button type="button" class="close" data-dismiss="modal"> &times;</button>
+	                      <h4>Sign Up For Our Newsletter!</h4>
+	                  </div>
+	              </div>
+	          </div>
+	      <div>
+
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="scripts/checkout.js" charset="utf-8"></script>
 	<script src="scripts/customer.js" charset="utf-8"></script>
   </body>

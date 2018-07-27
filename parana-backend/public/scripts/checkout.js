@@ -1,3 +1,13 @@
+/***
+ * This module contains all the front-end logic and validation for the checkout
+ * page. It calculates the user's total cart and checks the payment forms for
+ * valid information. When checkout is done, the order is saved and returns the
+ * user to the home page.
+ *
+ * @Author: Timothy Nguyen
+ * @Date: 7/26/18
+ */
+
 (function (window) {
   "use strict";
 
@@ -47,90 +57,88 @@
 		$('#total').text('$' + total.toFixed(2));
 	});
 
-  // main checkout form trigger functions
 
-  	function showBilling() {
-  		$('.billing-page').show();
-  		$('.shipping-page').hide();
-  		$('.payment-page').hide();
-  		$('.billing-heading').css({"text-decoration": "underline"});
-  		$('.shipping-heading').css({"text-decoration": "none"});
-  		$('.payment-heading').css({"text-decoration": "none"});
-  	}
-
-  	function showShipping() {
-  		$('.billing-page').hide();
-  		$('.shipping-page').show();
-  		$('.payment-page').hide();
-  		$('.billing-heading').css({"text-decoration": "none"});
-  		$('.shipping-heading').css({"text-decoration": "underline"});
-  		$('.payment-heading').css({"text-decoration": "none"});
-  	}
-
-  	function showPayment() {
-  		$('.billing-page').hide();
-  		$('.shipping-page').hide();
-  		$('.payment-page').show();
-  		$('.billing-heading').css({"text-decoration": "none"});
-  		$('.shipping-heading').css({"text-decoration": "none"});
-  		$('.payment-heading').css({"text-decoration": "underline"});
-  	}
 
   // info page triggers
 
 	showBilling();
 	$('.btn-shipping').click(function() {
-	  if (billingIsValid()) {
-		  checkSameAddress();
+	  // if (billingIsValid()) {
+		//   checkSameAddress();
 		  showShipping();
-	  } else {
-		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  }
+	  // } else {
+		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  // }
 	});
 
 
 	$('.back-to-billing').click(function() {
-		$('#validation-msg').hide();
+		// $('#validation-msg').hide();
 		showBilling();
 	});
 
 
 	$('.btn-payment').click(function() {
-	  if (shippingIsValid()) {
+	  // if (shippingIsValid()) {
 		  showPayment();
-	  } else {
-		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  }
+	  // } else {
+		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  // }
 	});
 
 
 	$('.back-to-shipping').click(function() {
-		$('#validation-msg').hide();
+		// $('#validation-msg').hide();
 		showShipping();
 	});
 
 
 	$('.btn-checkout').click(function() {
-	  if (paymentIsValid()) {
+	  // if (paymentIsValid()) {
 		  // after successful checkout, store order history and empty cart
 		  saveOrderHistory();
 		  emptyCart();
 
 		  alert("Order Successful!");
-		  // window.location = "index.html";
-		  // TODO user must wait 5 seconds to click alert
-		  	// cart does not empty if clicked sooner
-	  } else {
-		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  }
+		  window.location.href = "index.html";
+	  // } else {
+		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  // }
 	});
 
+// main checkout form trigger functions
 
+	function showBilling() {
+		$('.billing-page').show();
+		$('.shipping-page').hide();
+		$('.payment-page').hide();
+		$('.billing-heading').css({"text-decoration": "underline"});
+		$('.shipping-heading').css({"text-decoration": "none"});
+		$('.payment-heading').css({"text-decoration": "none"});
+	}
+
+	function showShipping() {
+		$('.billing-page').hide();
+		$('.shipping-page').show();
+		$('.payment-page').hide();
+		$('.billing-heading').css({"text-decoration": "none"});
+		$('.shipping-heading').css({"text-decoration": "underline"});
+		$('.payment-heading').css({"text-decoration": "none"});
+	}
+
+	function showPayment() {
+		$('.billing-page').hide();
+		$('.shipping-page').hide();
+		$('.payment-page').show();
+		$('.billing-heading').css({"text-decoration": "none"});
+		$('.shipping-heading').css({"text-decoration": "none"});
+		$('.payment-heading').css({"text-decoration": "underline"});
+	}
+
+	// save order history in database
 	function saveOrderHistory() {
-
 		// get current user's info
 		dpd.users.me(function(user) {
-
 			// item details for order history
 			var itemIdArr = [];
 			var itemNameArr = [];
@@ -143,14 +151,12 @@
 			// iterate  through item in cart
 			var cartItems = user.cart;
 			cartItems.forEach(function(item) {
-
 				// split "itemID:quantity:name:price"
 				var itemElems = item.split(":");
 				var itemID = itemElems[0];
 				var itemQuantity = itemElems[1];
 				var itemName = itemElems[2];
 				var itemPrice = itemQuantity * itemElems[3];
-
 				// add item details to order history
 				itemIdArr.push(itemID);
 				itemNameArr.push(itemName);
@@ -160,7 +166,6 @@
 				subTotal += Number(itemPrice);
 				shippingCost += shippingRate * itemQuantity;
 			});
-
 			// calculate total cart cost
 			var numItems = cartItems.length;
 			var taxCost = subTotal * taxRate;
@@ -168,7 +173,6 @@
 
 			var orderDate = new Date();
 			var userID = user.id;
-
 			// insert all data to order collection
 			dpd.orders.post({"userId":userID, "date":orderDate, "itemIDs":itemIdArr,
 			"itemNames":itemNameArr, "itemPrices":itemPriceArr,
@@ -183,15 +187,8 @@
 	// remove all items from current user's cart
 	function emptyCart() {
 		// get current user's info
-		dpd.users.me(function(user) {
-			// iterate  through item in cart
-			var cartItems = user.cart;
-			cartItems.forEach(function(item) {
-				// split "itemID:quantity:name:price"
-				var itemElems = item.split(":");
-				var itemID = itemElems[0];
-				removeFromCart(itemID);
-			});
+		dpd.users.me(function(user){
+			dpd.users.put(user.id, {cart: []});
 		});
 	}
 
