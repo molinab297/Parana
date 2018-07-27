@@ -1,4 +1,5 @@
-/***
+/** Checkout.js
+ *
  * This module contains all the front-end logic and validation for the checkout
  * page. It calculates the user's total cart and checks the payment forms for
  * valid information. When checkout is done, the order is saved and returns the
@@ -63,50 +64,54 @@
 
 	showBilling();
 	$('.btn-shipping').click(function() {
-	  // if (billingIsValid()) {
-		//   checkSameAddress();
+	  if (billingIsValid()) {
+		  checkSameAddress();
 		  showShipping();
-	  // } else {
-		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  // }
+	  } else {
+		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  }
 	});
 
 
 	$('.back-to-billing').click(function() {
-		// $('#validation-msg').hide();
+		$('#validation-msg').hide();
 		showBilling();
 	});
 
 
 	$('.btn-payment').click(function() {
-	  // if (shippingIsValid()) {
+	  if (shippingIsValid()) {
 		  showPayment();
-	  // } else {
-		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  // }
+	  } else {
+		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  }
 	});
 
 
 	$('.back-to-shipping').click(function() {
-		// $('#validation-msg').hide();
+		$('#validation-msg').hide();
 		showShipping();
 	});
 
 
 	$('.btn-checkout').click(function() {
-	  // if (paymentIsValid()) {
-		  // after successful checkout, store order history and empty cart
+	  if (paymentIsValid()) {
+		  after successful checkout, store order history and empty cart
 		  saveOrderHistory();
 		  emptyCart();
 
 		  alert("Order Successful!");
 		  window.location.href = "index.html";
-	  // } else {
-		//   $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
-	  // }
+	  } else {
+		  $('#validation-msg').fadeIn(75).fadeOut(75).fadeIn(75);
+	  }
 	});
 
-// main checkout form trigger functions
+
+/******************** Function Definitions **************************/
+
+
+// main checkout page transitions
 
 	function showBilling() {
 		$('.billing-page').show();
@@ -135,7 +140,7 @@
 		$('.payment-heading').css({"text-decoration": "underline"});
 	}
 
-	// save order history in database
+	// save order history to database
 	function saveOrderHistory() {
 		// get current user's info
 		dpd.users.me(function(user) {
@@ -192,6 +197,7 @@
 		});
 	}
 
+	// return true if all billing forms are valid
 	function billingIsValid () {
 		// get input from billing form
 		var firstName = $('#first-name').val();
@@ -229,24 +235,7 @@
 		}
 	}
 
-	function checkSameAddress() {
-		// check if user's billing address is same as shipping address
-		if ($('#same-shipping-address').is(':checked')) {
-		  var billAddress = $('#billing-address').val();
-		  var billZipCode = $('#billing-zip-code').val();
-		  var billCity = $('#billing-city').val();
-		  var billState = $('#billing-state').val();
-		  var billCountry = $('#billing-country').val();
-
-		  // set the shipping address to be same as billing address
-		  $('#shipping-address').val(billAddress);
-		  $('#shipping-zip-code').val(billZipCode);
-		  $('#shipping-city').val(billCity);
-		  $('#shipping-state').val(billState);
-		  $('#shipping-country').val(billCountry);
-		}
-	}
-
+	// return true if all shipping forms are valid
 	function shippingIsValid() {
 		// get input from shipping form
 		var address = $('#shipping-address').val();
@@ -277,6 +266,7 @@
 		}
 	}
 
+	// return true if all payment forms are valid
 	function paymentIsValid () {
 		// get input from payment forms
 		var cardName = $('#card-name').val();
@@ -298,5 +288,25 @@
 		  return true;
 		}
 	}
+
+	// set shipping info as billing info
+	function checkSameAddress() {
+		// check if user's billing address is same as shipping address
+		if ($('#same-shipping-address').is(':checked')) {
+		  var billAddress = $('#billing-address').val();
+		  var billZipCode = $('#billing-zip-code').val();
+		  var billCity = $('#billing-city').val();
+		  var billState = $('#billing-state').val();
+		  var billCountry = $('#billing-country').val();
+
+		  // set the shipping address to be same as billing address
+		  $('#shipping-address').val(billAddress);
+		  $('#shipping-zip-code').val(billZipCode);
+		  $('#shipping-city').val(billCity);
+		  $('#shipping-state').val(billState);
+		  $('#shipping-country').val(billCountry);
+		}
+	}
+
 
 })(window);
