@@ -75,12 +75,14 @@
         // user presses the 'change email' button
         $('#modal-change-email').on('click', function () {
             $("#new-email-form").show();
+			$("#new-password-form").hide();
         });
 
         // Show the password input fields and the 'update' button if
         // user presses the 'change password' button
         $('#modal-change-password').on('click', function () {
             $("#new-password-form").show();
+			$("#new-email-form").hide();
         });
 
         // Hide everything if user clicks off the popup
