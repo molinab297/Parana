@@ -96,7 +96,7 @@
 
 	$('.btn-checkout').click(function() {
 	  if (paymentIsValid()) {
-		  after successful checkout, store order history and empty cart
+		  //after successful checkout, store order history and empty cart
 		  saveOrderHistory();
 		  emptyCart();
 
